@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/category_item">
 
     <ImageView
         android:layout_marginStart="6dp"
@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/movie_4"
+        android:src="@drawable/placeholder_bg"
         app:layout_constraintDimensionRatio="9:16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
