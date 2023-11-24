@@ -7,8 +7,10 @@ import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import br.com.jpm.netflixrmk.model.Movie
+import com.squareup.picasso.Picasso
 
-class MovieAdapter(private val movies: List<Movie>, @LayoutRes private val layoutId: Int) :
+class MovieAdapter(private val movies: List<Movie>, @LayoutRes private val layoutId: Int,
+                   private val onItemClickListener: ((Int) -> Unit)? = null) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -25,10 +27,13 @@ class MovieAdapter(private val movies: List<Movie>, @LayoutRes private val layou
         holder.bind(movie)
     }
 
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movie) {
             val imageCover: ImageView = itemView.findViewById(R.id.rv_view)
-
+            imageCover.setOnClickListener {
+                onItemClickListener?.invoke(movie.id)
+            }
+            Picasso.get().load(movie.coverUrl).into(imageCover)
             // TODO: qaui vai ser trocado por uma URL que vira do servidor
 //            imageCover.setImageResource(movie.coverUrl)
         }

@@ -10,10 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.jpm.netflixrmk.model.Category
 import br.com.jpm.netflixrmk.model.Movie
 
-class CategoryAdapter(private val category:List<Category>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(
+    private val category: List<Category>,
+    private val onItemClickListener: ((Int) -> Unit)? = null
+) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
         return CategoryViewHolder(view)
     }
 
@@ -26,13 +30,14 @@ class CategoryAdapter(private val category:List<Category>) : RecyclerView.Adapte
         holder.bind(movie)
     }
 
-    class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(category: Category){
-            val categoryName : TextView = itemView.findViewById(R.id.text_title)
-            val rvCategory : RecyclerView = itemView.findViewById(R.id.rv_category)
+    inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(category: Category) {
+            val categoryName: TextView = itemView.findViewById(R.id.text_title)
+            val rvCategory: RecyclerView = itemView.findViewById(R.id.rv_category)
             categoryName.text = category.name
-            rvCategory.layoutManager = LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL,false)
-            rvCategory.adapter = MovieAdapter(category.movie,R.layout.movie_item)
+            rvCategory.layoutManager =
+                LinearLayoutManager(itemView.context, RecyclerView.HORIZONTAL, false)
+            rvCategory.adapter = MovieAdapter(category.movie, R.layout.movie_item,onItemClickListener)
         }
     }
 
